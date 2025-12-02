@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+<br />
+
+<div class="container">
+
+    <h2>Welcome to your personal finance dashboard! Here you can keep track of your finances and spending.</h2>
+
+    <hr />
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="card">
+
+                <div class="card-header bg-custom text-white" font-weight: bold>
+
+                    Manage Organisations
+
+                </div>
+
+                <div class="card-body">
+
+                    <a asp-controller="Organisation" asp-action="Create" class="btn btn-organisation-1">Create New Organisation</a>
+
+                    <a asp-controller="Organisation" asp-action="ListOrganisations" class="btn btn-organisation-2">View My Organisations</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br />
+
+</div>
+
+
+
+@section styles {
+
+}

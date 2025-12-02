@@ -1,0 +1,407 @@
+﻿@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/style.css" />
+}
+
+<!-- ... -->
+
+
+<main>
+    <article class="container article">
+
+        <h2 class="h2 article-title">Hi!</h2>
+
+        <p class="article-subtitle">Welcome to Dashboard!</p>
+
+        <!--
+          - #HOME
+        -->
+
+        <section class="home">
+
+            <div class="card profile-card">
+
+                <button class="card-menu-btn icon-box" aria-label="More" data-menu-btn>
+                    <span class="material-symbols-rounded  icon">more_horiz</span>
+                </button>
+
+                <ul class="ctx-menu">
+
+                    <li class="ctx-item">
+
+                        <a asp-controller="Product" asp-action="Create" asp-route-id="@Model.OrgId" class="ctx-menu-btn icon-box">
+                            <span class="material-symbols-rounded  icon" aria-hidden="true">edit</span>
+
+                            <span class="ctx-menu-text">Edit</span>
+                        </a>
+                    </li>
+
+                    <li class="ctx-item">
+                        <a asp-controller="Product" asp-action="Create" asp-route-id="@Model.OrgId" class="ctx-menu-btn icon-box">
+                            <span class="material-symbols-rounded  icon" aria-hidden="true">visibility</span>
+
+                            <span class="ctx-menu-text">Details</span>
+                        </a>
+                    </li>
+
+                    <li class="divider"></li>
+
+                    <li class="ctx-item">
+                        <a asp-controller="Product" asp-action="Create" asp-route-id="@Model.OrgId" class="ctx-menu-btn red icon-box">
+                            <span class="material-symbols-rounded  icon" aria-hidden="true">delete</span>
+
+                            <span class="ctx-menu-text">Delete</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="profile-card-wrapper">
+
+                    <figure class="card-avatar">
+                        <img src="~/images/org-avatar.jpg" alt="Elizabeth Foster" width="48" height="48">
+                    </figure>
+
+                    <div>
+                        <p class="card-title">@Model.Name</p>
+
+                        <p class="card-subtitle">@Model.Type</p>
+                    </div>
+
+                </div>
+
+                <ul class="contact-list">
+
+                    <li>
+                        <a href="#" class="contact-link icon-box">
+                            <span class="material-symbols-rounded  icon">mail</span>
+
+                            <p class="text">@Model.Email</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="contact-link icon-box">
+                            <span class="material-symbols-rounded  icon">call</span>
+
+                            <p class="text">@Model.Phone</p>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="divider card-divider"></div>
+
+                <p class="card-title">Job Works</p>
+
+                <br />
+
+                <ul class="revenue-list">
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="JobWork" asp-action="Create" asp-route-id="@Model.OrgId"><span>New Job Work</span></a>
+
+                    </li>
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Organisation" asp-action="ListJobWorks" asp-route-id="@Model.OrgId"><span>View My Job Works</span></a>
+
+                    </li>
+
+                </ul>
+
+                <div class="divider card-divider"></div>
+
+                <p class="card-title">Inventory</p>
+
+                <br />
+
+                <ul class="revenue-list">
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Organisation" asp-action="ListStocks" asp-route-id="@Model.OrgId"><span>View Stock</span></a>
+
+                    </li>
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Product" asp-action="Create" asp-route-id="@Model.OrgId"><span>Quick Cutout Entry</span></a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="card-wrapper">
+
+                <div class="card task-card">
+
+                    <div class="card-icon icon-box green">
+                        <span class="material-symbols-rounded  icon">task_alt</span>
+                    </div>
+
+                    <div>
+                        <data class="card-data" value="21">21</data>
+
+                        <p class="card-text">Job Works Completed in 2023</p>
+                    </div>
+
+                </div>
+
+                <div class="card task-card">
+
+                    <div class="card-icon icon-box blue">
+                        <span class="material-symbols-rounded  icon">drive_file_rename_outline</span>
+                    </div>
+
+                    <div>
+                        <data class="card-data" value="21">21</data>
+
+                        <p class="card-text">Job Works Inprogress in 2023</p>
+                    </div>
+
+                </div>
+
+                @*<div class="card task-card">
+
+                    <div class="card-icon icon-box pink">
+                        <span class="material-symbols-rounded  icon">insights</span>
+                    </div>
+
+                    <div>
+                        <a class="btn btn-dashing" asp-controller="Product" asp-action="ListProducts" asp-route-id="@Model.OrgId"><span>Analytics</span></a>
+
+                    </div>
+
+                </div>*@
+
+            </div>
+
+            <div class="card revenue-card">
+
+                <button class="card-menu-btn icon-box" aria-label="More" data-menu-btn>
+                    <span class="material-symbols-rounded  icon">more_horiz</span>
+                </button>
+
+                <ul class="ctx-menu">
+
+                    <li class="ctx-item">
+                        <a asp-controller="Product" asp-action="Create" asp-route-id="@Model.OrgId" class="ctx-menu-btn icon-box">
+                            <span class="material-symbols-rounded  icon" aria-hidden="true">cached</span>
+
+                            <span class="ctx-menu-text">Help</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+
+                <p class="card-title">Products</p>
+
+                <ul class="revenue-list">
+
+                    <li class="revenue-item icon-box">
+
+                        @*<button class="btn btn-dashing" data-load-more>*@
+                        @*<span class="spiner"></span> (for the spinner icon)*@
+                        <a class="btn btn-dashing" asp-controller="Product" asp-action="Create" asp-route-id="@Model.OrgId"><span>Create Product</span></a>
+
+                        @*</button>*@
+
+                    </li>
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Product" asp-action="ListProducts" asp-route-id="@Model.OrgId"><span>List Products</span></a>
+
+                    </li>
+
+                </ul>
+
+                <div class="divider card-divider"></div>
+
+                <p class="card-title">Clients</p>
+
+                <ul class="revenue-list">
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Load" asp-action="Create" asp-route-id="@Model.OrgId"><span>Create Clients</span></a>
+
+                    </li>
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Load" asp-action="ListLoads" asp-route-id="@Model.OrgId"><span>View Clients</span></a>
+
+                    </li>
+
+                </ul>
+
+                <div class="divider card-divider"></div>
+
+                <p class="card-title">Suppliers</p>
+
+                <ul class="revenue-list">
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Load" asp-action="Create" asp-route-id="@Model.OrgId"><span>Creare Supplier</span></a>
+
+                    </li>
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Load" asp-action="ListLoads" asp-route-id="@Model.OrgId"><span>View Suppliers</span></a>
+
+                    </li>
+
+                </ul>
+
+                <div class="divider card-divider"></div>
+
+
+                <p class="card-title">Stock Orders</p>
+
+                <ul class="revenue-list">
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Load" asp-action="Create" asp-route-id="@Model.OrgId"><span>New Load</span></a>
+
+                    </li>
+
+                    <li class="revenue-item icon-box">
+
+                        <a class="btn btn-dashing" asp-controller="Load" asp-action="ListLoads" asp-route-id="@Model.OrgId"><span>View Loads</span></a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+
+
+        <!--
+          - #PROJECTS
+        -->
+
+        <section class="projects">
+
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Recent Job Works</h2>
+
+                <a class="btn btn-link icon-box" asp-controller="Organisation" asp-action="ListJobWorks" asp-route-id="@Model.OrgId">
+                    <span>View All</span>
+
+                    <span class="material-symbols-rounded  icon" aria-hidden="true">arrow_forward</span>
+                </a>
+            </div>
+
+            <ul class="project-list">
+                @foreach (var jobwork in @Model.JobWorkList)
+                {
+                    <li class="project-item">
+                        <div class="card project-card">
+
+                            <button class="card-menu-btn icon-box" aria-label="More" data-menu-btn>
+                                <span class="material-symbols-rounded  icon">more_horiz</span>
+                            </button>
+
+                            <ul class="ctx-menu">
+
+                                <li class="ctx-item">
+                                    <button class="ctx-menu-btn icon-box">
+                                        <span class="material-symbols-rounded  icon" aria-hidden="true">done</span>
+
+                                        <span class="ctx-menu-text">Mark Done</span>
+                                    </button>
+                                </li>
+
+                                <li class="ctx-item">
+                                    <button class="ctx-menu-btn icon-box">
+                                        <span class="material-symbols-rounded  icon" aria-hidden="true">edit</span>
+
+                                        <span class="ctx-menu-text">Edit</span>
+                                    </button>
+                                </li>
+
+                                <li class="divider"></li>
+
+                                <li class="ctx-item">
+                                    <button class="ctx-menu-btn red icon-box">
+                                        <span class="material-symbols-rounded  icon" aria-hidden="true">delete</span>
+
+                                        <span class="ctx-menu-text">Delete</span>
+                                    </button>
+                                </li>
+
+                            </ul>
+
+                            <time class="card-date" datetime="2022-04-09">@jobwork.CreationDate</time>
+
+                            <h3 class="card-title">
+                                <a href="#">@jobwork.Name</a>
+                            </h3>
+
+                            <div style="display: flex; gap: 10px;">
+                                <div class="card-badge blue">@jobwork.CustomerName</div>
+                                <div class="card-badge green">Open</div>
+                                <div class="card-badge red">Closed</div>
+                            </div>
+
+
+                            <p class="card-text">
+                                @jobwork.Description
+                            </p>
+
+                            <div class="divider card-divider"></div>
+
+                            <ul class="revenue-list">
+
+                                <li class="revenue-item icon-box">
+
+                                    <a class="btn btn-dashing" data-load-more asp-controller="JobWorkEntry" asp-action="CreateJobWorkEntry" asp-route-id="@jobwork.JobWorkId">
+                                        <span class="spiner"></span>
+
+                                        <span>New Entry</span>
+                                    </a>
+
+                                </li>
+
+                                <li class="revenue-item icon-box">
+
+                                    <a class="btn btn-dashing" data-load-more asp-controller="JobWorkEntry" asp-action="ListJobWorkEntries" asp-route-id="@jobwork.JobWorkId">
+                                        <span class="spiner"></span>
+
+                                        <span>View More</span>
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </li>
+                }
+
+                </ul>
+
+        </section>
+
+    </article>
+</main>
+

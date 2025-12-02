@@ -1,0 +1,41 @@
+﻿@model OrganisationViewModel
+    <br />
+    <br />
+<h2>My Organisations</h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Type</th>
+            <th align="left">Location</th>
+            <th align="left">Email</th>
+            <th align="left">Phone</th>
+            <th align="left">Date Created</th>
+            <th align="left"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var organisation in @Model.OrganisationList)
+        {
+            <tr>
+                <td align="left">@organisation.Name</td>
+                <td align="left">@organisation.Type</td>
+                <td align="left">@organisation.Location</td>
+                <td align="left">@organisation.Email</td>
+                <td align="left">@organisation.Phone</td>
+                <td align="left">@organisation.CreationDate</td>
+                <td align="left">
+                    <a asp-controller="Organisation" asp-action="InitDashboard" asp-route-id="@organisation.OrgId" class="btn btn-dashboard">Dashboard</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Budget" asp-action="Index" class="btn btn-dashboard">Back</a>
+
+
+@section styles {
+
+
+}

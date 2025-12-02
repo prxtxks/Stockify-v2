@@ -1,0 +1,42 @@
+﻿@model dynamic
+
+<h3>Hello World</h3>
+<div>
+    @foreach (var productStock in Model.stockDict)
+    {
+        <h3>@productStock.Key</h3>
+        @if (productStock.Value.Any())
+        {
+            <div>
+                @foreach (var stock in productStock.Value)
+                {
+                    <label>
+                        <input type="radio" name="stock" value="@stock.StockId" />
+                        @if (stock.Quantity > 1)
+                        {
+                            @stock.Quantity
+                            <span> available</span>
+                        }
+                        else
+                        {
+                            <span>@stock.Quantity</span>
+                        }
+                        @if (stock.Width.HasValue && stock.Height.HasValue)
+                        {
+                            <span>| Width: @stock.Width</span>
+                            <span>| Height: @stock.Height</span>
+                        }
+                        @if (stock.Weight.HasValue)
+                        {
+                            <span>| Weight: @stock.Weight kg</span>
+                        }
+                    </label><br />
+                }
+            </div>
+        }
+        else
+        {
+            <div>No stock available</div>
+        }
+    }
+</div>

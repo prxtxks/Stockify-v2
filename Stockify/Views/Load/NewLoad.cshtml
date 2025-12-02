@@ -1,0 +1,106 @@
+﻿@model LoadViewModel
+<br />
+<br />
+@if (ViewBag.NewLoad == true)
+{
+    <h2>Create a new Load</h2>
+    <form asp-controller="Load" asp-action="NewLoad" method="post">
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="LoadId" name="LoadId" value="@Model.LoadId">
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="LoadOrgId" name="LoadOrgId" value="@Model.LoadOrgId">
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="OrgName" name="OrgName" value="@Model.OrgName">
+        </div>
+
+        <div class="form-group">
+            <label for="Name">Load Name/ID:</label>
+            <input type="text" class="form-control" asp-for="Name" required id="loadNameInput">
+        </div>
+        <div class="form-group" id="loadNameError" style="display:none">
+            <span class="text-danger">Please change the load name to a unique name. This name already exists</span>
+        </div>
+
+        <div class="form-group">
+            <label for="Name">Load Group:</label>
+            <input type="text" class="form-control" asp-for="LoadGroup" required oninput="this.value = this.value.toUpperCase()">
+        </div>
+
+        <div class="form-group">
+            <label for="Name">Vehicle Number:</label>
+            <input type="text" class="form-control" asp-for="VehicleNo" required>
+        </div>
+
+        <button type="submit" class="btn btn-create-organisation">Proceed</button>
+    </form>
+}
+else
+{
+    <br />
+    <br />
+    <h2>New Load <span style="display:inline" ; class="text-success">@Model.Name</span> Created Successfully</h2>
+    <br />
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Organisation Name:</td>
+                <td>@Model.OrgName</td>
+            </tr>
+            <tr>
+                <td>Load Group:</td>
+                <td>@Model.LoadGroup</td>
+            </tr>
+            <tr>
+                <td>Vehicle Number:</td>
+                <td>@Model.VehicleNo</td>
+            </tr>
+            <tr>
+                <td>Creation Date:</td>
+                <td>@Model.CreationDate</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a asp-controller="LoadEntry" asp-action="CreateLoadEntry" asp-route-id="@Model.LoadId" class="btn btn-create-organisation">Add Load Entry</a>
+    <a asp-controller="Load" asp-action="ListLoads" asp-route-id="@Model.LoadId" class="btn btn-create-organisation">View Loads</a>
+}
+
+@section styles {
+
+
+}
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+    $(function () {
+          $('#loadNameInput').on('change', function () {
+            var name = $(this).val();
+            var orgId = '@Model.LoadOrgId';
+            var submitBtn = $('button[type="submit"]');
+            $.ajax({
+              url: '@Url.Action("CheckLoadName", "Load")',
+              data: { name: name, orgId: orgId },
+              success: function (result) {
+                if (result.exists) {
+                    alert('Load name already exists for this organization.');
+                    $('#loadNameError').show();
+                  submitBtn.prop('disabled', true);
+                } else {
+                    $('#loadNameError').hide();
+                  submitBtn.prop('disabled', false);
+                }
+              }
+            });
+          });
+    });
+
+
+
+    </script>
+}

@@ -1,0 +1,90 @@
+﻿@model LoadListViewModel
+<br />
+<br />
+<h2>Loads for @Model.OrgName</h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th align="left">Name/ID</th>  
+            <th align="left">Load Group</th>
+            <th align="left">Vehicle Number</th>
+            <th align="left">Date Created</th>
+            <th align="left"></th>
+            <th align="left"></th>
+            <th align="left"></th>
+            <th align="left"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var load in @Model.LoadList)
+        {
+            <tr>
+                <td align="left">@load.Name</td>
+                <td align="left">@load.LoadGroup</td>
+                <td align="left">@load.VehicleNo</td>
+                <td align="left">@load.CreationDate</td>
+
+         @*<td align="left">
+            <div class="card profile-card">
+                <button class="card-menu-btn icon-box" aria-label="More" data-menu-btn>
+                    <span class="material-symbols-rounded  icon">list</span>
+                </button>
+
+                <ul class="ctx-menu">
+
+                    <li class="ctx-item">
+
+                        <a asp-controller="LoadEntry" asp-action="CreateLoadEntry" asp-route-id="@load.LoadId" class="ctx-menu-btn icon-box">
+                            <span class="material-symbols-rounded  icon" aria-hidden="true">edit</span>
+
+                            <span class="ctx-menu-text">Add Entry</span>
+                        </a>
+                    </li>
+
+                    <li class="ctx-item">
+                        <a asp-controller="LoadEntry" asp-action="ListLoadEntries" asp-route-id="@load.LoadId" class="ctx-menu-btn icon-box">
+                            <span class="material-symbols-rounded  icon" aria-hidden="true">visibility</span>
+
+                            <span class="ctx-menu-text">View Entries</span>
+                        </a>
+                    </li>
+
+                    <li class="divider"></li>
+
+                    <li class="ctx-item">
+                        <a asp-controller="LoadEntry" asp-action="ListLoadEntries" asp-route-id="@load.LoadId" class="ctx-menu-btn red icon-box">
+                            <span class="material-symbols-rounded  icon" aria-hidden="true">delete</span>
+
+                            <span class="ctx-menu-text">Delete</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </td>*@
+
+
+                <td align="left">
+                    <a asp-controller="LoadEntry" asp-action="CreateLoadEntry" asp-route-id="@load.LoadId" class="btn btn-dashboard">Add Entry</a>
+                </td>
+                <td align="left">
+                    <a asp-controller="LoadEntry" asp-action="ListLoadEntries" asp-route-id="@load.LoadId" class="btn btn-dashboard">View Entries</a>
+                </td>
+                <td align="left">
+                    <a asp-controller="Organisation" asp-action="InitDashboard" asp-route-id="@load.LoadId" class="btn btn-primary">Edit</a>
+                </td>
+                <td align="left">
+                    <a asp-controller="Organisation" asp-action="InitDashboard" asp-route-id="@load.LoadId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Budget" asp-action="Index" class="btn btn-dashboard">Back</a>
+
+
+@section styles {
+
+
+}

@@ -1,0 +1,85 @@
+﻿@model ProductListViewModel
+    <br />
+    <br />
+<h2>Products for @Model.OrgName</h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th align="left">Item</th>
+            <th align="left">CostPerKG</th>
+            <th align="left">CostPerItem</th>
+            <th align="left">WeightPerItem</th>
+            <th align="left">CostPerSqft</th>
+            <th align="left">WeightPerSqft</th>
+            <th align="left">Initialized On</th>
+            <th align="left"></th>
+            <th align="left"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in @Model.ProductList)
+        {
+            <tr>
+                <td align="left">@product.Name</td>
+                @if (@product.CostPerUnitWeight != null)
+                {
+                    <td align="left">@product.CostPerUnitWeight</td>
+                }
+                else
+                {
+                    <td align="left">N/A</td>
+                }
+                @if (@product.CostPerUnit != null)
+                {
+                    <td align="left">@product.CostPerUnit</td>
+                }
+                else
+                {
+                    <td align="left">N/A</td>
+                }
+                @if (@product.WeightPerUnit != null)
+                {
+                    <td align="left">@product.WeightPerUnit</td>
+                }
+                else
+                {
+                    <td align="left">N/A</td>
+                }
+                @if (@product.CostPer100Sqft != null)
+                {
+                    <td align="left">@product.CostPer100Sqft</td>
+                }
+                else
+                {
+                    <td align="left">N/A</td>
+                }
+                @if (@product.WeightPer100Sqft != null)
+                {
+                    <td align="left">@product.WeightPer100Sqft</td>
+                }
+                else
+                {
+                    <td align="left">N/A</td>
+                }
+              
+                <td align="left">@product.CreationDate</td>
+
+                <td align="left">
+                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-primary">Edit</a>
+                </td>
+                <td align="left">
+                    <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-danger" onclick="return confirm('Are you sure want to delete this product?');">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Product" asp-action="Index" class="btn btn-dashboard">Back</a>
+
+
+@section styles {
+
+
+}

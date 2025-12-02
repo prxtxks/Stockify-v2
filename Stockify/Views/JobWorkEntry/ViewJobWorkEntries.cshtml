@@ -1,0 +1,66 @@
+﻿@model JobWorkEntryListViewModel
+<br />
+<br />
+<h2>JobWork Entries for @Model.JobWorkName in @Model.OrgName</h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th align="left">Product</th>
+            <th align="left">Weight</th>
+            <th align="left">Quantity</th>
+            <th align="left">Dimensions</th>
+            <th align="left">Entry Date</th>
+            <th align="left"></th>
+            <th align="left"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jobworkentry in @Model.JobWorkEntryList)
+        {
+            <tr>
+                <td align="left">@Model.JobWorkEntryProductNames[jobworkentry.JobWorkEntryId]</td>
+
+                @if (Model.JobWorkEntryProductTypes[jobworkentry.JobWorkEntryId] == "ByWeight")
+                {
+                    <td align="left">@jobworkentry.Weight</td>
+                    <td align="left">@jobworkentry.Quantity</td>
+                    <td align="left">N/A</td>
+                }
+                else if (Model.JobWorkEntryProductTypes[jobworkentry.JobWorkEntryId] == "ByQuantity")
+                {
+                    <td align="left">N/A</td>
+                    <td align="left">@jobworkentry.Quantity</td>
+                    <td align="left">N/A</td>
+                }
+                else if (Model.JobWorkEntryProductTypes[jobworkentry.JobWorkEntryId] == "ByDimension")
+                {
+                    <td align="left">N/A</td>
+                    <td align="left">@jobworkentry.Quantity</td>
+                    <td align="left">@jobworkentry.Height x @jobworkentry.Width</td>
+                }
+                else
+                {
+                    <td align="left">N/A</td>
+                    <td align="left">N/A</td>
+                    <td align="left">N/A</td>
+                }
+
+                <td align="left">@jobworkentry.CreationDate</td>
+                <td align="left">
+                    <a asp-controller="Organisation" asp-action="InitDashboard" asp-route-id="@jobworkentry.JobWorkEntryId" class="btn btn-dashboard">Edit</a>
+                </td>
+                <td align="left">
+                    <a asp-controller="Organisation" asp-action="InitDashboard" asp-route-id="@jobworkentry.JobWorkEntryId" class="btn btn-dashboard">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Budget" asp-action="Index" class="btn btn-dashboard">Back</a>
+
+
+@section styles {
+
+
+}

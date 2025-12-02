@@ -1,0 +1,71 @@
+﻿@model StockListViewModel
+<br />
+<br />
+
+@*<div class="form-group">
+    <label for="LoadGroupStock">Load Group:</label>
+
+    <select class="form-control" asp-for="ProductId" required id="LoadGroupStock">
+        <option value="">--Select Load Group-</option>
+        @foreach (var product in Model.ProductList)
+        {
+            <option value="@product.ProductId" data-producttype="@product.Type">@product.Name</option>
+        }
+    </select>
+    <input type="hidden" class="form-control" asp-for="StockProductName">
+    <input type="hidden" class="form-control" asp-for="StockProductType">
+</div>*@
+
+<h2>Stock for @Model.OrgName</h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th align="left">Product</th>
+            <th align="left">Weight</th>
+            <th align="left">Quantity</th>
+            <th align="left">Dimensions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var stock in @Model.StockList)
+        {
+            <tr>
+                <td align="left">@Model.StockProductNames[stock.StockId]</td>
+
+                @if (Model.StockProductTypes[stock.StockId] == "ByWeight")
+                {
+                    <td align="left">@stock.Weight</td>
+                    <td align="left">@stock.Quantity</td>
+                    <td align="left">N/A</td>
+                }
+                else if (Model.StockProductTypes[stock.StockId] == "ByQuantity")
+                {
+                    <td align="left">N/A</td>
+                    <td align="left">@stock.Quantity</td>
+                    <td align="left">N/A</td>
+                }
+                else if (Model.StockProductTypes[stock.StockId] == "ByDimension")
+                {
+                    <td align="left">N/A</td>
+                    <td align="left">@stock.Quantity</td>
+                    <td align="left">@stock.Height x @stock.Width</td>
+                }
+                else
+                {
+                    <td align="left">N/A</td>
+                    <td align="left">N/A</td>
+                    <td align="left">N/A</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Budget" asp-action="Index" class="btn btn-dashboard">Back</a>
+
+
+@section styles {
+
+
+}
+

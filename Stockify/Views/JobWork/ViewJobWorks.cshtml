@@ -1,0 +1,151 @@
+﻿@model DashboardViewModel
+
+<br />
+<main>
+    <article class="container article">
+
+        <h2 class="h2 article-title">Hi!</h2>
+
+        <p class="article-subtitle">@Model.Name's Job Works!</p>
+
+
+        <!-- #SEARCH BAR -->
+        @*<div class="search-bar">
+            <form style="display:inline">
+                <input type="text" placeholder="Search Job Works" name="search">
+                <button type="submit"><i class="fa fa-search"></i>Search</button>
+            </form>
+        </div>*@
+
+        <div class="search-bar">
+      <form>
+        <div class="search-input">
+          <input type="text" placeholder="Search Job Works" name="search">
+          <button type="submit"><i class="fas fa-search"></i></button>
+        </div>
+      </form>
+    </div>
+
+
+        <br />
+        <br />
+
+        <!--
+      - #PROJECTS
+    -->
+
+        <section class="projects">
+
+            <ul class="project-list">
+                @foreach (var jobwork in @Model.JobWorkList)
+                {
+                    <li class="project-item">
+                        <div class="card project-card">
+
+                            <button class="card-menu-btn icon-box" aria-label="More" data-menu-btn>
+                                <span class="material-symbols-rounded  icon">more_horiz</span>
+                            </button>
+
+                            <ul class="ctx-menu">
+
+                                <li class="ctx-item">
+                                    <button class="ctx-menu-btn icon-box">
+                                        <span class="material-symbols-rounded  icon" aria-hidden="true">done</span>
+
+                                        <span class="ctx-menu-text">Mark Done</span>
+                                    </button>
+                                </li>
+
+                                <li class="ctx-item">
+                                    <button class="ctx-menu-btn icon-box">
+                                        <span class="material-symbols-rounded  icon" aria-hidden="true">edit</span>
+
+                                        <span class="ctx-menu-text">Edit</span>
+                                    </button>
+                                </li>
+
+                                <li class="divider"></li>
+
+                                <li class="ctx-item">
+                                    <button class="ctx-menu-btn red icon-box">
+                                        <span class="material-symbols-rounded  icon" aria-hidden="true">delete</span>
+
+                                        <span class="ctx-menu-text">Delete</span>
+                                    </button>
+                                </li>
+
+                            </ul>
+
+                            <time class="card-date" datetime="2022-04-09">@jobwork.CreationDate</time>
+
+                            <h3 class="card-title">
+                                <a href="#">@jobwork.Name</a>
+                            </h3>
+
+                            <div style="display: flex; gap: 10px;">
+                                <div class="card-badge blue">@jobwork.CustomerName</div>
+                                <div class="card-badge green">Open</div>
+                                <div class="card-badge red">Closed</div>
+                            </div>
+
+                            <p class="card-text">
+                                @jobwork.Description
+                            </p>
+
+                            <div class="divider card-divider"></div>
+
+                            <ul class="revenue-list">
+
+                                <li class="revenue-item icon-box">
+
+                                    <a class="btn btn-dashing" data-load-more asp-controller="JobWorkEntry" asp-action="CreateJobWorkEntry" asp-route-id="@jobwork.JobWorkId">
+                                        <span class="spiner"></span>
+
+                                        <span>New Entry</span>
+                                    </a>
+
+                                </li>
+
+                                <li class="revenue-item icon-box">
+
+                                    <a class="btn btn-dashing" data-load-more asp-controller="JobWorkEntry" asp-action="ListJobWorkEntries" asp-route-id="@jobwork.JobWorkId">
+                                        <span class="spiner"></span>
+
+                                        <span>View More</span>
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </li>
+                }
+
+            </ul>
+
+        </section>
+
+    </article>
+</main>
+
+
+@section Scripts {
+    <script>const form = document.querySelector('form');
+    const input = document.querySelector('input[name="search"]');
+    const list = document.querySelectorAll('.project-item');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const query = input.value.toLowerCase().trim();
+        list.forEach(function (item) {
+            const name = item.querySelector('.card-title a').textContent.toLowerCase();
+            if (name.includes(query)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });</script>
+
+}

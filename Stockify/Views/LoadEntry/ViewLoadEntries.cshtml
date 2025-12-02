@@ -1,0 +1,68 @@
+﻿@model LoadEntryListViewModel
+<br />
+<br />
+<h2>Load Entries for @Model.LoadName in @Model.OrgName</h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th align="left">Product</th>
+            <th align="left">Load Group</th>
+            <th align="left">Weight</th>
+            <th align="left">Quantity</th>
+            <th align="left">Dimensions</th>
+            <th align="left">Entry Date</th>
+            <th align="left"></th>
+            <th align="left"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var loadentry in @Model.LoadEntryList)
+        {
+            <tr>
+                <td align="left">@Model.LoadEntryProductNames[loadentry.LoadEntryId]</td>
+                <td align="left">@Model.LoadGroup</td>
+
+                @if (Model.LoadEntryProductTypes[loadentry.LoadEntryId] == "ByWeight")
+                {
+                    <td align="left">@loadentry.Weight</td>
+                    <td align="left">@loadentry.Quantity</td>
+                    <td align="left">N/A</td>
+                }
+                else if (Model.LoadEntryProductTypes[loadentry.LoadEntryId] == "ByQuantity")
+                {
+                    <td align="left">N/A</td>
+                    <td align="left">@loadentry.Quantity</td>
+                    <td align="left">N/A</td>
+                }
+                else if (Model.LoadEntryProductTypes[loadentry.LoadEntryId] == "ByDimension")
+                {
+                    <td align="left">N/A</td>
+                    <td align="left">@loadentry.Quantity</td>
+                    <td align="left">@loadentry.Height x @loadentry.Width</td>
+                }
+                else
+                {
+                    <td align="left">N/A</td>
+                    <td align="left">N/A</td>
+                    <td align="left">N/A</td>
+                }
+
+                <td align="left">@loadentry.CreationDate</td>
+                <td align="left">
+                    <a asp-controller="Organisation" asp-action="InitDashboard" asp-route-id="@loadentry.LoadEntryId" class="btn btn-dashboard">Edit</a>
+                </td>
+                <td align="left">
+                    <a asp-controller="Organisation" asp-action="InitDashboard" asp-route-id="@loadentry.LoadEntryId" class="btn btn-dashboard">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Budget" asp-action="Index" class="btn btn-dashboard">Back</a>
+
+
+@section styles {
+
+
+}

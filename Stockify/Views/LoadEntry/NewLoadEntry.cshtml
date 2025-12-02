@@ -1,0 +1,194 @@
+﻿@model LoadEntryViewModel
+<br />
+<br />
+@if (ViewBag.NewLoadEntry == true)
+{
+    <h2>Create a new Load Entry for @Model.LoadName</h2>
+    <form asp-controller="LoadEntry" asp-action="AddLoadEntry" method="post">
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="LoadId" name="LoadId" value="@Model.LoadId">
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="LoadOrgId" name="LoadOrgId" value="@Model.LoadOrgId">
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="LoadGroup" name="LoadGroup" value="@Model.LoadGroup">
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="LoadName" name="LoadName" value="@Model.LoadName">
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="LoadOrgName" name="LoadOrgName" value="@Model.LoadOrgName">
+        </div>
+
+        <div class="form-group">
+            <label for="LoadEntryProduct">Product:</label>
+
+            <select class="form-control" asp-for="LoadEntryProductId" required id="LoadEntryProduct">
+                <option value="">--Select Product-</option>
+                @foreach (var product in Model.ProductList)
+                {
+                    <option value="@product.ProductId" data-producttype="@product.Type">@product.Name</option>
+                }
+            </select>
+            <input type="hidden" class="form-control" asp-for="LoadEntryProductName">
+            <input type="hidden" class="form-control" asp-for="LoadEntryProductType">
+        </div>
+
+        @*If product = ByWeight, then = ask No of kgs.
+            If product = ByQuantity, then = ask Quantity
+            If product = ByDimension, then = ask Width, Height(in feet), & Quantity*@
+
+        <div class="form-group" id="Weight">
+            <label for="Weight">Weight:</label>
+            <input class="form-control required-by-weight" asp-for="Weight" value="" pattern="^\d+(\.\d{1,2})?$" title="Please enter a number with up to 2 decimal places">
+            <span asp-validation-for="Weight" class="text-danger"></span>
+        </div>
+
+        <div class="form-group" id="Quantity">
+            <label for="Quantity">Quantity:</label>
+            <input class="form-control required-by-quantity" asp-for="Quantity" value="" pattern="^\d+(\.\d{1,2})?$" title="Please enter a number with up to 2 decimal places">
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+
+        <div class="form-group" id="Width">
+            <label for="Width">Width:</label>
+            <input class="form-control required-by-dimension" asp-for="Width" value="" pattern="^\d+(\.\d{1,2})?$" title="Please enter a number with up to 2 decimal places">
+            <span asp-validation-for="Width" class="text-danger"></span>
+        </div>
+
+        <div class="form-group" id="Height">
+            <label for="Height">Height:</label>
+            <input class="form-control required-by-dimension" asp-for="Height" value="" pattern="^\d+(\.\d{1,2})?$" title="Please enter a number with up to 2 decimal places">
+            <span asp-validation-for="Height" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-create-organisation">Proceed</button>
+    </form>
+}
+else
+{
+    <h2>New Load Entry in <span style="display:inline" ; class="text-success">@Model.LoadName</span> Created Successfully</h2>
+    <br />
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Organisation Name:</td>
+                <td>@Model.LoadOrgName</td>
+            </tr>
+            <tr>
+                <td>Load Group:</td>
+                <td>@Model.LoadGroup</td>
+            </tr>
+            <tr>
+                <td>Product Name:</td>
+                <td>@Model.LoadEntryProductName</td>
+            </tr>
+
+            @if (@Model.LoadEntryProductType == "ByWeight")
+            {
+                <tr>
+                    <td>Product Weight:</td>
+                    <td>@Model.Weight</td>
+                </tr>
+                <tr>
+                    <td>Product Quantity:</td>
+                    <td>@Model.Quantity</td>
+                </tr>
+            }
+            @if (@Model.LoadEntryProductType == "ByQuantity")
+            {
+                <tr>
+                    <td>Product Quantity:</td>
+                    <td>@Model.Quantity</td>
+                </tr>
+            }
+            @if (@Model.LoadEntryProductType == "ByDimension")
+            {
+                <tr>
+                    <td>Product Dimensions:</td>
+                    <td>@Model.Width x @Model.Height</td>
+                </tr>
+                <tr>
+                    <td>Product Quantity:</td>
+                    <td>@Model.Quantity</td>
+                </tr>
+            }
+
+            <tr>
+                <td>Creation Date:</td>
+                <td>@Model.CreationDate</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a asp-controller="LoadEntry" asp-action="CreateLoadEntry" asp-route-id="@Model.LoadId" class="btn btn-create-organisation">Add Another Load Entry</a>
+    <a asp-controller="LoadEntry" asp-action="ListLoads" asp-route-id="@Model.LoadId" class="btn btn-create-organisation">View Loads</a>
+}
+
+@section styles {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>$(document).ready(function () {
+            $("#Weight").hide();
+            $("#Quantity").hide();
+            $("#Width").hide();
+            $("#Height").hide();
+            
+            });
+        $("#LoadEntryProduct").change(function () {
+            var productName = $('option:selected', this).text();
+            $('#LoadEntryProductName').val(productName);
+
+            var selectedType = $(this).find("option:selected").data("producttype");
+            showFieldsByType(selectedType);
+            $('#LoadEntryProductType').val(selectedType);
+
+            function showFieldsByType(type) {
+                switch (type) {
+                    case "ByWeight":
+                        $("#Weight").show();
+                        $("#Quantity").show();
+                        $("#Width").hide();
+                        $("#Height").hide();
+                        $(".required-by-weight").prop("required", true);
+                        $(".required-by-quantity").prop("required", true);
+                        $(".required-by-dimension").prop("required", false);
+                        break;
+                    case "ByQuantity":
+                        $("#Weight").hide();
+                        $("#Quantity").show();
+                        $("#Width").hide();
+                        $("#Height").hide();
+                        $(".required-by-weight").prop("required", false);
+                        $(".required-by-quantity").prop("required", true);
+                        $(".required-by-dimension").prop("required", false);
+                        break;
+                    case "ByDimension":
+                        $("#Weight").hide();
+                        $("#Quantity").show();
+                        $("#Width").show();
+                        $("#Height").show();
+                        $(".required-by-weight").prop("required", false);
+                        $(".required-by-quantity").prop("required", true);
+                        $(".required-by-dimension").prop("required", true);
+                        break;
+                    default:
+                        $("#Weight").hide();
+                        $("#Quantity").hide();
+                        $("#Width").hide();
+                        $("#Height").hide();
+                        $(".required-by-weight").prop("required", true);
+                        $(".required-by-quantity").prop("required", true);
+                        $(".required-by-dimension").prop("required", true);
+                        break;
+                }
+            }
+        });</script>
+
+}
+
