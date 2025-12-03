@@ -1,5 +1,5 @@
 # Stockify v2 - AI-Powered Inventory Management Application for Businesses
-> **Stockify v1**: (https://github.com/prxtxks/stockify-v1)
+> **Link to Stockify v1(https://github.com/prxtxks/stockify-v1)**: 
 
 ![Stockify Mini UI Mocks](./Stockify/mocks.svg)
 
