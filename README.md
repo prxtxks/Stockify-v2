@@ -28,7 +28,7 @@ Key Features:
 
 ![Users](./Stockify/users.svg)
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript  
 - **Backend:** Python / Flask or Node.js (customize based on your implementation)  
@@ -58,17 +58,3 @@ pip install -r requirements.txt  # or npm install for Node.js version
 # Run Application
 python app.py  # or npm start for Node.js version
 ```
-
-## Why This Matters
-
-**Stockify** empowers businesses to:  
-- Reduce human errors in inventory tracking  
-- Gain insights into stock trends and sales patterns  
-- Detect unusual activity in real time using AI  
-- Streamline operations across multiple warehouses  
-
-
-
-<p align="center">
-Crafted with ❤️
-</p>
